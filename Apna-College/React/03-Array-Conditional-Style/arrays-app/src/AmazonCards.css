@@ -1,0 +1,37 @@
+.AmazonCards  {
+    background-color: rgb(53, 147, 255);
+    border-radius: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 200px;
+    width: 160px;
+}
+
+.title {
+    padding: 1rem 1rem 0.5rem 1rem;
+    margin: 0;
+    text-wrap: balance;
+}
+
+.newDescription {
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+.newDescription li {
+    list-style-position: inside;
+    text-align: start;
+    padding-left: 0.5rem;
+}
+
+.Price {
+    background-color: goldenrod;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.Price h5 {
+    margin: 0;
+}

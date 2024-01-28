@@ -1,0 +1,16 @@
+.AmazonCardsTab {
+    background-color: rgb(172, 171, 171);
+    padding-bottom: 0.5rem;
+}
+
+.AmazonCardsTabHeading {
+    margin-top: 0;
+    padding: 1rem;
+}
+
+.AmazonCardsTabContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem;
+}

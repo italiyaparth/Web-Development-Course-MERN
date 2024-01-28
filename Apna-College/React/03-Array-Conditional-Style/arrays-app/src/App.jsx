@@ -1,10 +1,18 @@
 import "./App.css";
+import ProductPropsTab from "./ProductPropsTab.jsx";
+import ProductConditionalsTab from "./ProductConditionalsTab.jsx";
+import ProductStyleTab from "./ProductStyleTab.jsx";
+import AmazonCardsTab from "./AmazonCardsTab.jsx";
 
 function App() {
+
   return (
     <>
-      <p>Hi</p>
 
+      <ProductPropsTab />
+      <ProductConditionalsTab />
+      <ProductStyleTab />
+      <AmazonCardsTab />
 
     </>
   );

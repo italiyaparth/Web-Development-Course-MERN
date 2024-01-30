@@ -10,16 +10,16 @@
 -- In Console
 
     - npm create vite@latest
-    - give a project name = first-component
+    - give a project name = arrays-app
     - select framework = React
     - select varient = JavaScript
 
-- Now, you can see that, there is a "first-component" folder is created. Inside, there are folders and files.
+- Now, you can see that, there is a "arrays-app" folder is created. Inside, there are folders and files.
 - We have to install node_modules
 
 -- In Console
 
-    - cd first-component
+    - cd arrays-app
     - npm install
     - To start the server = npm run dev; it will give a link
 

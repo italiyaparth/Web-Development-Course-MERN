@@ -64,6 +64,9 @@
 
     - export WeatherWidget component while creating WeatherWidget component
     - import SearchBox component and render it
+    - import InfoBox component and render it
+    - create state variable weather info and pass it to InfoBox component
+    - create a new method which will set state to new data and pass it to SearchBox component which will send new data
 
 -- In SearchBox.jsx
 
@@ -82,3 +85,12 @@
     - visit https://openweathermap.org/current   for our weather API
     - API call - https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
     - get data, create method to fetch api
+
+    - receive method from WeatherWidget component as props. send new data to this method
+
+-- In InfoBox.jsx
+
+    - export InfoBox component while creating InfoBox component
+    - show weather info data
+    - import card (media) component from MUI
+    - receive weather info as props

@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import "./SearchBox.css";
 
-export default function SearchBox() {
+export default function SearchBox({ updateInfo, updateError }) {
 
     const API_URL = "https://api.openweathermap.org/data/2.5/weather";
     const API_KEY = "01484768bc3944c45cbe219c26dcc94e";
@@ -17,32 +17,37 @@ export default function SearchBox() {
 
     let getWeatherInfo = async () => {
 
-        let response = await fetch(`${API_URL}?q=${stateVariableCityName}&appid=${API_KEY}&units=metric`);
-        let data = await response.json();
-        console.log(data);
+      let response = await fetch(`${API_URL}?q=${stateVariableCityName}&appid=${API_KEY}&units=metric`);
+      let data = await response.json();
 
-        let weatherData = {
-            httpCode: data.cod,
-            cityName: data.name,
-            temp: data.main.temp,
-            time: new Date(data.dt * 1000),
-            weather: data.weather[0].description
-        };
+      let weatherData = {
+          httpCode: data.cod,
+          cityName: data.name,
+          temp: data.main.temp,
+          time: new Date(data.dt * 1000),
+          weather: data.weather[0].description
+      };
 
-        console.log(weatherData);
-
-        setStateVariableDisabledButton(false);
+      return weatherData;
     };
 
     let handleChange = (event) => {
         setStateVariableCityName(event.target.value);
     };
 
-    let handleSubmit = (event) => {
+    let handleSubmit = async (event) => {
+
+      try {
         event.preventDefault();
-        setStateVariableCityName("");
         setStateVariableDisabledButton(true);
-        getWeatherInfo();
+        updateInfo(await getWeatherInfo());
+        setStateVariableCityName("");
+        setStateVariableDisabledButton(false);
+      } catch (error) {
+        updateError(true);
+        setStateVariableCityName("");
+        setStateVariableDisabledButton(false);
+      }
     };
 
   return (
@@ -67,11 +72,7 @@ export default function SearchBox() {
             <p>
                 <CircularProgress/><br /><b>Loading...</b>
             </p>
-        ) : (
-            <div>
-                <p></p>
-            </div>
-        )}
+        ) : null }
 
       </form>
     </div>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind CSS</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="underline ml-4">Hello World!</h1>
+
+    <p class="font-sans">Lorem ipsum dolor sit amet.</p>
+    <p class="font-mono">Lorem ipsum dolor sit amet.</p>
+    
+    <!-- font size -->
+    <p class="text-lg">Lorem ipsum dolor sit amet.</p>
+    <p class="text-6xl">Lorem ipsum dolor sit amet.</p>
+
+    <!-- font style -->
+    <p class="italic">Lorem ipsum dolor sit amet.</p>
+
+    <!-- font weight -->
+    <p class="font-semibold">Lorem ipsum dolor sit amet.</p>
+    
+    <!-- text align -->
+    <p class="text-center">Lorem ipsum dolor sit amet.</p>
+    
+    <!-- sizing -->
+    <div class="w-4">Lorem ipsum dolor sit amet.</div> <!-- width: 1rem; 16px -->
+    <div class="w-40">Lorem ipsum dolor sit amet.</div> <!-- width: 10rem; 160px -->
+    <div class="w-1/2">Lorem ipsum dolor sit amet.</div> <!-- width: 50%; -->
+    <div class="w-full">Lorem ipsum dolor sit amet.</div> <!-- width: 100%; -->
+    
+    <!-- color -->
+    <p class="text-black">Lorem ipsum dolor sit amet.</p> <!-- color: black; -->
+    <p class="text-red-900">Lorem ipsum dolor sit amet.</p> <!-- color: rgb(127 29 29); -->
+
+    <!-- margin -->
+    <div class="ml-4">Lorem ipsum dolor sit amet.</div> <!-- margin-left: 1rem; 16px -->
+
+    <!-- border -->
+    <div class="rounded hover:rounded-lg">Lorem ipsum dolor sit amet.</div> <!-- border-radius: 0.25rem; 4px -->
+    <div class="rounded-full">Lorem ipsum dolor sit amet.</div> <!-- border-radius: 9999px; -->
+    <div class="border-2">Lorem ipsum dolor sit amet.</div> <!-- border-width: 2px; -->
+
+    <!-- css units -->
+    <div class="h-[200px]">Lorem ipsum dolor sit amet.</div> <!-- height: 200px; (not recommended, increasing bundle size) -->
+
+    <!-- Width of 16 by default, 32 on medium screens, and 48 on large screens -->
+    <img class="w-16 md:w-32 lg:w-48" />
+
+
+
+    <!-- Example -->
+    <div class="w-11/12 sm:w-4/5 md:w-3/5 lg:w-2/5 m-auto mb-2 flex flex-wrap rounded border-2 border-black">
+
+        <div class="w-full bg-gradient-to-r from-sky-500 to-indigo-500 text-white text-xl h-24 flex justify-center items-center font-bold rounded-t-sm text-center">
+            News you can Trust
+        </div>
+
+        <div class="text-center m-2 w-full">
+            <h3 class="text-lg font-semibold">Stay up to date with the Latest!</h3>
+            <p>Subscribe to our newsletter fot the latest news staright into your inbox</p>
+            <form class="flex flex-col">
+                <input class="w-full w-11/12 sm:w-4/5 md:w-3/5 lg:w-3/5 mt-2 py-2 mx-auto bg-slate-200 text-center rounded placeholder:text-sm" placeholder="your@email.com" />
+                <button class="w-full w-11/12 sm:w-4/5 md:w-3/5 lg:w-3/5 mt-2 py-2 mx-auto bg-blue-500 text-white rounded-full">Subscribe Now</button>
+            </form>
+            <p class="my-3 text-sm">we value your privacy</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

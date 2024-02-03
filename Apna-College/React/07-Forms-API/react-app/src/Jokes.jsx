@@ -5,7 +5,8 @@ export default function Jokes() {
     let [stateVariableJoke, setStateVariableJoke] = useState({});
     let [isloading, setIsLoading] = useState(true);
 
-    const URL = "https://official-joke-api.appspot.com/random_joke";
+    // const URL = "https://official-joke-api.appspot.com/random_joke";
+    const URL = "https://official-joke-api.appspot.com/jokes/random";
 
     const getNewJoke = async () => {
         try {
@@ -16,7 +17,7 @@ export default function Jokes() {
             console.log(data);
 
             setStateVariableJoke(data);
-            setIsLoading(false)
+            setIsLoading(false);
 
         } catch (error) {
             console.log(error);

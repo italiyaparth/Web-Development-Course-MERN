@@ -15,16 +15,17 @@ export const todoSlice = createSlice({
                 task: action.payload,
                 isDone: false
             };
-            state.todos.push(newTodo);
+            state.todos = state.todos.concat([newTodo]);
         },
         deleteTodo: (state, action) => {
             state.todos = state.todos.filter((todo) => todo.id !== action.payload);
         },
         markAsDone: (state, action) => {
-            state.todos.map((todo) => {
+            state.todos = state.todos.map((todo) => {
                 if (todo.id === action.payload) {
-                    todo.isDone = true;
+                    return { ...todo, isDone: true };
                 }
+                return todo;
             });
         }
     }

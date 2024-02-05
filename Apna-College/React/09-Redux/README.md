@@ -62,7 +62,7 @@
 
 
 - Creating Reducer: Redux Toolkit automatically generates action creators (functions that create action objects). (state, action) => { // update state }
-- Redux Toolkit lets you write simpler immutable update logic using "mutating" syntax. meaning we don't need to update through destructuring ({...preVal, newVal})
+- Redux Toolkit lets you write simpler immutable update logic using "mutating" syntax. meaning we don't need to update through spread ({...preVal, newVal})
 
 
 - Slice: Add a new file named src/features/todo/todoSlice.js. In that file, import the createSlice API from Redux Toolkit. ( for storing reducers )

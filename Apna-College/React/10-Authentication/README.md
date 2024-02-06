@@ -55,6 +55,7 @@
     - npm install cors
     - npm install dotenv
     - npm install cookie-parser
+    - npm install nodemailer
 
 -- In index.js
 
@@ -79,9 +80,83 @@
     - import { BrowserRouter, Routes, Route } from "react-router-dom";
     - render above components
     - import Signup component and render it in element attribute of Route component
+    - import Signin component and render it in element attribute of Route component
 
 
 -- In components/Signup.jsx
 
     - create and export Signup component
     - create signup form
+    - in the form create a <Link> element with "to" attribute which will work like anchor element and we move to the written path which is in "to" attribute
+    - import { Link } from "react-router-dom";
+    - create useState to store data in variable
+    - import useState
+    - create axios post method when submitting 
+    - import axios
+    - in axios post url will be of server
+    - import "useNavigate" and use it to navigate to other routes
+
+
+-- In components/Signin.jsx
+
+    - same as above
+    - we are using cookies in signin so add this line: axios.defaults.withCredentials = true;
+
+
+
+# Back End ( server )
+
+-- In index.js
+
+    - create mongoose connection
+    - use CORS
+    - import User model
+    - create post route for saving user in database (signup)
+    - import bcrypt and use it before storing data
+    - send data to the front-end
+
+    - create post route for authenticate user in database (signin)
+    - compare method is of bcrypt, to validate hashed password
+    
+    - import jwt
+    - create token, in payload username & SECRET(at least 32 chars), and options(expiresIn) has to be passed
+    - store this token in user cookies: res.cookie("token", token, { httpOnly: true, maxAge: 3600000 });
+    - import cookie-parser and use
+    - add cors options
+
+
+-- In models/users.js
+
+    - create model for users
+
+
+
+# Front End ( client )
+
+-- In src/App.jsx
+
+    - import Home component and render it in element attribute of Route component
+    - import ForgotPassword component and render it in element attribute of Route component
+
+
+-- In components/Home.jsx
+
+    - create and export Home component
+    - create <Link> to Sign Out
+
+
+-- In components/ForgotPassword.jsx
+
+    - create and export ForgotPassword component
+    - send email to reset password
+    - after sending email navigate to Sign In
+
+
+
+# Back End ( server )
+
+-- In index.js
+
+    - create forgotpassword route
+    - import nodemailer and write code for it
+    - we have to give our own email and password, you should go to your account > 2-step verification and then at the last generate App password use that password

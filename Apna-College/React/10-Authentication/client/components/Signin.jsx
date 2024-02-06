@@ -3,18 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export default function Signup() {
+export default function Signin() {
 
-    const [signUpUser, setSignUpUser] = useState({
-        username: "",
+    const [signInUser, setSignInUser] = useState({
         email: "",
         password: ""
     });
 
     const navigate = useNavigate();
 
+    axios.defaults.withCredentials = true;
+
     const handleInputChange = (event) => {
-        setSignUpUser((previousUser) => {
+        setSignInUser((previousUser) => {
             return { ...previousUser, [event.target.name]: event.target.value };
         });
     };
@@ -22,19 +23,18 @@ export default function Signup() {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        await axios.post("http://localhost:8080/auth/signup", signUpUser)
-        .then((response) => {
+        await axios.post("http://localhost:8080/auth/signin", signInUser)
+        .then((response) => { 
             if (response.data.status) {
                 console.log(response.data);
-                navigate("/signin");
+                navigate("/");
             } else {
                 console.log(response.data);
             }
         })
         .catch((error) => console.log(error));
 
-        setSignUpUser({
-            username: "",
+        setSignInUser({
             email: "",
             password: ""
         });
@@ -55,32 +55,32 @@ export default function Signup() {
                     </div>
 
                     <div className="w-full lg:w-1/2 py-16 px-12">
-                        <h2 className="text-3xl mb-4 font-semibold text-center">Create an Account</h2>
+                        <h2 className="text-3xl mb-4 font-semibold text-center">Sign In</h2>
 
                         <form onSubmit={handleFormSubmit}>
 
                             <div className="mt-1">
-                                <input name="username" value={signUpUser.username} onChange={handleInputChange} className="font-semibold placeholder:font-normal border border-grey-400 rounded-lg shadow-sm py-2 px-3 w-full" type="text" placeholder="username" required/>
+                                <input value={signInUser.email} onChange={handleInputChange} name="email" className="font-semibold placeholder:font-normal border border-grey-400 rounded-lg shadow-sm py-2 px-3 w-full" type="email" placeholder="email" required/>
                             </div>
 
                             <div className="mt-5">
-                                <input name="email" value={signUpUser.email} onChange={handleInputChange} className="font-semibold placeholder:font-normal border border-grey-400 rounded-lg shadow-sm py-2 px-3 w-full" type="email" autoComplete="off" placeholder="you@email.com" required/>
+                                <input value={signInUser.password} onChange={handleInputChange} name="password" className="font-semibold placeholder:font-normal border border-grey-400 rounded-lg shadow-sm py-2 px-3 w-full" type="password" placeholder="********" required />
                             </div>
 
-                            <div className="mt-5">
-                                <input name="password" value={signUpUser.password} onChange={handleInputChange} className="font-semibold placeholder:font-normal border border-grey-400 rounded-lg shadow-sm py-2 px-3 w-full" type="password" placeholder="********" required/>
-                            </div>
+                            <Link to="/forgotpassword">
+                                    <span className="float-right py-1 mb-4 text-blue-600">Forgot Password?</span>
+                            </Link>
 
                             <div className="mt-5">
-                                <button className="w-full rounded-lg shadow-sm py-2 text-center text-white bg-gradient-to-r from-sky-500 to-fuchsia-500" type="submit">Sign Up</button>
+                                <button className="w-full rounded-lg shadow-sm py-2 text-center text-white bg-gradient-to-r from-sky-500 to-fuchsia-500" type="submit">Sign In</button>
                             </div>
 
                         </form>
 
                         <div className="mt-5">
-                            <p>Already have an Account?</p>
-                            <Link to="/signin">
-                                <button className="w-full rounded-lg shadow-sm py-2 mt-2 text-center text-white bg-gradient-to-r from-fuchsia-500 to-sky-500" type="button">Sign In</button>
+                            <p>Don&apos;t have an Account?</p>
+                            <Link to="/signup">
+                                <button className="w-full rounded-lg shadow-sm py-2 mt-2 text-center text-white bg-gradient-to-r from-fuchsia-500 to-sky-500" type="button">Sign Up</button>
                             </Link>
                         </div>
 

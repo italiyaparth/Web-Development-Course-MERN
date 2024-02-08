@@ -158,5 +158,64 @@
 -- In index.js
 
     - create forgotpassword route
-    - import nodemailer and write code for it
+    - import nodemailer and write code for it (sample from w3school)
     - we have to give our own email and password, you should go to your account > 2-step verification and then at the last generate App password use that password
+    - to to replace "." with URL encoding use, const encodedToken = encodeURIComponent(token).replace(/\./g, "%2E");
+
+
+
+# Back End ( server )
+
+-- In src/App.jsx
+
+    - import ResetPassword component and render it in element attribute of Route component and concat "/:token" in path
+
+
+-- In components/ResetPassword.jsx
+
+    - create and export ResetPassword component
+    - after reset navigate to Sign In
+    - useParams is from react-router-dom for accessing params. here, we will access token and concat it with post route
+
+
+
+# Back End ( server )
+
+-- In index.js
+
+    - create resetpassword route
+    - decode jwt token
+    - get id from jwt token
+    - update hash password
+
+
+
+# Back End ( server )
+
+-- In index.js
+
+    - create verifyUser middleware to check at all user needed routes
+    - create authentication route at "/"
+
+
+
+# Front End ( Client )
+
+-- In components/Home.jsx
+
+    - create useEffect and send get request to "/" route
+    - it will check if user is signed in or not
+
+    - create handleClickSignOut method
+
+
+
+# Back End ( server )
+
+-- In index.js
+
+    - create signout route
+
+
+------- verify and sign out route are on the same page in react, authorization not working properly -------
+------- check it --------

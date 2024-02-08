@@ -33,6 +33,29 @@ app.listen(process.env.PORT, () => {
 });
 
 
+const verifyUser = (req, res, next) => {
+
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.json({ status: false, message: "token does not exist!" })
+        }
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        next();
+
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: false, message: "Invalid Token!"+ error });
+    }
+};
+
+
+app.get("/", verifyUser, (req, res) => {
+
+    return res.json({ status: true, message: "Authorized!"});
+});
+
+
 
 app.post("/auth/signup", async (req, res) => {
 
@@ -82,7 +105,61 @@ app.post("/auth/forgotpassword", async (req, res) => {
         return res.json({ status: false, message: "user does not exists!" })
     }
 
-    // nodemailer code
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "5m" });
 
-    return res.json({ status: true, message: "Email sent successfully!" });
+    // nodemailer code
+    const transporter = nodemailer.createTransport({
+        service: process.env.SERVICE_FOR_NODEMAILER,
+        auth: {
+            user: process.env.EMAIL_FOR_NODEMAILER,
+            pass: process.env.PASSWORD_FOR_NODEMAILER
+        }
+    });
+    
+    const encodedToken = encodeURIComponent(token).replace(/\./g, "%2E");   // to replace "." with URL encoding
+
+    const mailOptions = {
+        from: process.env.EMAIL_FOR_NODEMAILER,
+        to: email,
+        subject: "Reset Password",
+        text: `http://localhost:5173/resetpassword/${encodedToken}`
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+            return res.json({ status: false, message: "Email sent failed!" });
+        } else {
+            console.log('Email sent: ' + info.response);
+            return res.json({ status: true, message: "Email sent successfully!" });
+        }
+    });
+
+});
+
+
+app.post("/auth/resetpassword/:token", async (req, res) => {
+
+    try {
+        const { token } = req.params;
+        const { password } = req.body;
+
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const id = decodedToken.id;     // when we created jwt token, we have passed value of id as user_id
+        
+        const hash = await bcrypt.hash(password, 10);
+        await User.findByIdAndUpdate({ _id: id }, { password: hash });
+
+        return res.json({ status: true, message: "Password updated successfully!" });
+        
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: false, message: "Invalid Token!"+ error });
+    }
+});
+
+
+app.get("/auth/signout", (req, res) => {
+    res.clearCookie("token");
+    return res.json({ status: true, message: "Signed Out Successfully!"}); 
 });

@@ -1,20 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
 
-    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { token } = useParams();
 
     const navigate = useNavigate();
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        await axios.post("http://localhost:8080/auth/forgotpassword", { email })
+        await axios.post("http://localhost:8080/auth/resetpassword/"+token, { password })
         .then((response) => { 
             if (response.data.status) {
-                alert("Check your Email to Reset your Password!");
                 console.log(response.data);
                 navigate("/signin");
             } else {
@@ -24,7 +24,7 @@ export default function ForgotPassword() {
         })
         .catch((error) => console.log(error));
 
-        setEmail("");
+        setPassword("");
     };
 
     return (
@@ -42,16 +42,16 @@ export default function ForgotPassword() {
                     </div>
 
                     <div className="w-full lg:w-1/2 py-16 px-12">
-                        <h2 className="text-3xl mb-4 font-semibold text-center">Forgot Password?</h2>
+                        <h2 className="text-3xl mb-4 font-semibold text-center">New Password</h2>
 
                         <form onSubmit={handleFormSubmit}>
 
                             <div className="mt-5">
-                                <input value={email} onChange={(event) => setEmail(event.target.value)} name="email" className="font-semibold placeholder:font-normal border border-grey-400 rounded-lg shadow-sm py-2 px-3 w-full" type="email" placeholder="email" required/>
+                                <input value={password} onChange={(event) => setPassword(event.target.value)} name="password" className="font-semibold placeholder:font-normal border border-grey-400 rounded-lg shadow-sm py-2 px-3 w-full" type="password" placeholder="********" required/>
                             </div>
 
                             <div className="mt-5">
-                                <button className="w-full rounded-lg shadow-sm py-2 text-center text-white bg-gradient-to-r from-sky-500 to-fuchsia-500" type="submit">Send Email</button>
+                                <button className="w-full rounded-lg shadow-sm py-2 text-center text-white bg-gradient-to-r from-sky-500 to-fuchsia-500" type="submit">Reset Password</button>
                             </div>
 
                         </form>

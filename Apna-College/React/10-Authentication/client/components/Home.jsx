@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import axios from "axios";
 
 export default function Home() {
@@ -8,13 +8,32 @@ export default function Home() {
 
     axios.defaults.withCredentials = true;
 
+    useEffect(() => {
+      
+        const verifyUser = async () => {
+
+            await axios.get("http://localhost:8080")
+            .then((response) => {
+                if (response.data.status) {
+                    console.log(response.data);
+                } else {
+                    console.log(response.data);
+                    navigate("/signin");
+                }
+            })
+            .catch((error) => console.log(error));
+        };
+        verifyUser();
+    }, []);
+    
+
     const handleSignOut = async () => {
 
-        await axios.post("http://localhost:8080/auth/signout", )
+        await axios.get("http://localhost:8080/auth/signout")
         .then((response) => { 
             if (response.data.status) {
                 console.log(response.data);
-                navigate("/signin");
+                navigate("/");    // useEffect will not work from here as navigate does not request to the server
             } else {
                 console.log(response.data);
             }
@@ -38,11 +57,7 @@ export default function Home() {
 
                     <div className="w-full lg:w-1/2 py-16 px-12">
 
-                        <div>
-                            <Link to="/signin">
-                                <button onClick={handleSignOut} className="w-full rounded-lg shadow-sm py-2 mt-2 text-center text-white bg-gradient-to-r from-fuchsia-500 to-sky-500" type="button">Sign Out</button>
-                            </Link>
-                        </div>
+                        <button onClick={handleSignOut} className="w-full rounded-lg shadow-sm py-2 mt-2 text-center text-white bg-gradient-to-r from-fuchsia-500 to-sky-500" type="button">Sign Out</button>
 
                     </div>
 

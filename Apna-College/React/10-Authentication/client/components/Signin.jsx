@@ -67,9 +67,9 @@ export default function Signin() {
                                 <input value={signInUser.password} onChange={handleInputChange} name="password" className="font-semibold placeholder:font-normal border border-grey-400 rounded-lg shadow-sm py-2 px-3 w-full" type="password" placeholder="********" required />
                             </div>
 
-                            <Link to="/forgotpassword">
-                                    <span className="float-right py-1 mb-4 text-blue-600">Forgot Password?</span>
-                            </Link>
+                            <div className="flex justify-end mt-1">
+                                <Link to="/forgotpassword" className="flex-shrink-0 text-blue-600">Forgot Password?</Link>
+                            </div>
 
                             <div className="mt-5">
                                 <button className="w-full rounded-lg shadow-sm py-2 text-center text-white bg-gradient-to-r from-sky-500 to-fuchsia-500" type="submit">Sign In</button>
